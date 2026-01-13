@@ -81,6 +81,35 @@ const highlightMenu = function () {
     const navbarLinks = document.querySelectorAll('.navbar__item .navbar__links, .navbar__btn .button');
     const navbarHeight = 80; // Height of sticky navbar
     
+    // Also handle navbar logo click to go to home
+    navLogo.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+            e.preventDefault();
+            clickHighlighted = true;
+            
+            // Remove highlight from all links
+            navbarLinks.forEach(l => l.classList.remove('highlight'));
+            // Add highlight to home link
+            const homeLink = document.querySelector('#home-page');
+            if (homeLink) {
+                homeLink.classList.add('highlight');
+            }
+            
+            // Scroll to top - use both methods for better mobile compatibility
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            setTimeout(function() {
+                clickHighlighted = false;
+            }, 1000);
+        }
+    });
+    
     navbarLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -100,23 +129,44 @@ const highlightMenu = function () {
                 // Smooth scroll to section accounting for navbar height
                 const targetSection = document.querySelector(href);
                 if (targetSection) {
-                    let targetPosition;
-                    
-                    // For home section, scroll to top
+                    // For home section, always scroll to absolute top
                     if (href === '#home') {
-                        targetPosition = 0;
+                        // Use both methods for better mobile compatibility
+                        document.documentElement.scrollTop = 0;
+                        document.body.scrollTop = 0;
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     } else {
-                        // Use getBoundingClientRect for accurate position calculation
-                        const rect = targetSection.getBoundingClientRect();
-                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        // Calculate target position: current scroll + element position - navbar height
-                        targetPosition = scrollTop + rect.top - navbarHeight;
+                        // For other sections, calculate position accounting for sticky navbar
+                        const isNavbarSticky = navbar.classList.contains('sticky');
+                        let targetPosition;
+                        
+                        // Get the section's position - use offsetTop for more reliable positioning
+                        const sectionTop = targetSection.offsetTop;
+                        
+                        if (isNavbarSticky) {
+                            // When navbar is sticky, body has padding-top: 80px
+                            // offsetTop is relative to the body (including padding), so we subtract navbar height
+                            targetPosition = sectionTop - navbarHeight;
+                        } else {
+                            // When navbar is not sticky, offsetTop is relative to document
+                            // We still subtract navbar height to show section below navbar
+                            targetPosition = sectionTop - navbarHeight;
+                        }
+                        
+                        // Ensure we don't scroll to negative position
+                        targetPosition = Math.max(0, targetPosition);
+                        
+                        // Use both methods for better mobile compatibility
+                        document.documentElement.scrollTop = targetPosition;
+                        document.body.scrollTop = targetPosition;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
                     }
-                    
-                    window.scrollTo({
-                        top: Math.max(0, targetPosition), // Ensure we don't scroll to negative position
-                        behavior: 'smooth'
-                    });
                 }
                 
                 // Allow IntersectionObserver to take over after scroll completes
