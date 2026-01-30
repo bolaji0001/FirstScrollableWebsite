@@ -265,14 +265,19 @@ body.navbar-sticky {
     text-align: center;
     padding: 30px;
     box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .hero__heading {
-    font-size: 100px;
+    font-size: clamp(28px, 8vw, 100px);
     margin-bottom: 24px;
     color: #fff;
     word-wrap: break-word;
+    overflow-wrap: break-word;
     max-width: 100%;
+    padding: 0 15px;
+    line-height: 1.2;
 }
 
 .hero__heading span {
@@ -287,7 +292,7 @@ background-size: 100%;
 } 
 
 .hero__description {
-    font-size: 60px;
+    font-size: clamp(18px, 5vw, 60px);
     background: #da22ff;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #9114ff, #da22ff);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right #8f0eff, #da22ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -297,7 +302,10 @@ background-size: 100%;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
     word-wrap: break-word;
+    overflow-wrap: break-word;
     max-width: 100%;
+    padding: 0 15px;
+    line-height: 1.3;
 }
 
 .highlight {
@@ -306,34 +314,59 @@ background-size: 100%;
 
 @media screen and (max-width: 768px) {
     .hero__heading{
-        font-size: 50px;
+        font-size: clamp(32px, 10vw, 50px);
+        padding: 0 10px;
+        line-height: 1.1;
     }
 
     .hero__description{
-        font-size: 30px;
+        font-size: clamp(20px, 6vw, 30px);
+        padding: 0 10px;
     }
     
     .hero__container {
-        padding: 20px;
+        padding: 20px 15px;
     }
 }
 
 @media screen and (max-width: 480px) {
     .hero__heading{
-        font-size: 35px;
+        font-size: clamp(28px, 8vw, 35px);
+        padding: 0 10px;
+        line-height: 1.1;
+        margin-bottom: 16px;
     }
 
     .hero__description{
-        font-size: 22px;
+        font-size: clamp(18px, 5vw, 22px);
+        padding: 0 10px;
     }
     
     .hero__container {
-        padding: 15px;
+        padding: 15px 10px;
     }
     
     .main__btn {
         font-size: 1.2rem;
         padding: 15px 40px;
+        max-width: calc(100% - 20px);
+    }
+}
+
+/* Specific breakpoint for iPhone 12 Pro and similar devices (390-428px) */
+@media screen and (max-width: 428px) and (min-width: 375px) {
+    .hero__heading {
+        font-size: clamp(26px, 7.5vw, 32px);
+        padding: 0 12px;
+    }
+    
+    .hero__description {
+        font-size: clamp(16px, 4.5vw, 20px);
+        padding: 0 12px;
+    }
+    
+    .hero__container {
+        padding: 20px 12px;
     }
 }
 
