@@ -1075,8 +1075,8 @@ background-size: 100%;
 
 @media screen and (max-width: 480px) {
     .footer__links--wrapper {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
         padding: 0 15px;
     }
     
