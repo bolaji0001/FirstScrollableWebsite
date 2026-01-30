@@ -78,7 +78,7 @@ const highlightMenu = function () {
     navLogo.addEventListener("click", hideMobileMenu)
 
     // Add highlight class to clicked navbar link and handle smooth scrolling
-    const navbarLinks = document.querySelectorAll('.navbar__item .navbar__links, .navbar__btn .button');
+    const navbarLinks = document.querySelectorAll('.navbar__item .navbar__links, .navbar__btn .button, #sign-up-btn');
     const navbarHeight = 80; // Height of sticky navbar
     
     // Also handle navbar logo click to go to home
@@ -143,18 +143,13 @@ const highlightMenu = function () {
                         const isNavbarSticky = navbar.classList.contains('sticky');
                         let targetPosition;
                         
-                        // Get the section's position - use offsetTop for more reliable positioning
-                        const sectionTop = targetSection.offsetTop;
+                        // Use getBoundingClientRect for more accurate positioning
+                        const rect = targetSection.getBoundingClientRect();
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        const currentTop = rect.top + scrollTop;
                         
-                        if (isNavbarSticky) {
-                            // When navbar is sticky, body has padding-top: 80px
-                            // offsetTop is relative to the body (including padding), so we subtract navbar height
-                            targetPosition = sectionTop - navbarHeight;
-                        } else {
-                            // When navbar is not sticky, offsetTop is relative to document
-                            // We still subtract navbar height to show section below navbar
-                            targetPosition = sectionTop - navbarHeight;
-                        }
+                        // Always account for navbar height
+                        targetPosition = currentTop - navbarHeight;
                         
                         // Ensure we don't scroll to negative position
                         targetPosition = Math.max(0, targetPosition);

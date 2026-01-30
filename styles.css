@@ -6,10 +6,20 @@
     scroll-behavior: smooth;
 }
 
+img, video, iframe, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 html, body {
     overflow-x: hidden;
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
     position: relative;
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
@@ -18,6 +28,7 @@ html, body {
 body {
     overflow-x: hidden;
     overflow-y: auto;
+    max-width: 100vw;
 }
 
 .navbar {
@@ -52,11 +63,13 @@ body.navbar-sticky {
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 50px;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 768px) {
     .navbar__container {
         padding: 0 20px;
+        max-width: 100vw;
     }
 }
 
@@ -137,8 +150,9 @@ body.navbar-sticky {
         height: 80px;
         z-index: 1;
         width: 100%;
-        max-width: 1300px;
-        padding: 0;
+        max-width: 100vw;
+        padding: 0 20px;
+        box-sizing: border-box;
     }
 
     .navbar__menu {
@@ -234,8 +248,9 @@ body.navbar-sticky {
     display: flex;
     align-items: center;
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .hero__container {
@@ -244,16 +259,20 @@ body.navbar-sticky {
     justify-content: center;
     align-items: center;
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     height: 90%;
     text-align: center;
     padding: 30px;
+    box-sizing: border-box;
 }
 
 .hero__heading {
     font-size: 100px;
     margin-bottom: 24px;
     color: #fff;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .hero__heading span {
@@ -277,6 +296,8 @@ background-size: 100%;
     -moz-background-clip: text;
     -webkit-text-fill-color: transparent;
     -moz-text-fill-color: transparent;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .highlight {
@@ -343,7 +364,7 @@ background-size: 100%;
     height: 90%;
     z-index: 1;
     width: 100%;
-    max-width: 1300px;
+    max-width: min(1300px, 100vw);
     padding: 0 50px;
     overflow-x: hidden;
     box-sizing: border-box;
@@ -455,7 +476,7 @@ background-size: 100%;
     margin: 10px;
     height: 500px;
     width: 500px;
-    max-width: 100%;
+    max-width: calc(100% - 20px);
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -464,6 +485,7 @@ background-size: 100%;
     align-items: center;
     background-image: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .fa-layer-group, .fa-users {
@@ -607,8 +629,9 @@ background-size: 100%;
     height:   100%;
     padding: 10rem 0;
     width: 100%;
-    max-width: 100%;
+    max-width: 100vw;
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 .services h1 {
     display: flex;
@@ -630,7 +653,7 @@ background-size: 100%;
     grid-template-rows: 1fr;
     gap:20px;
     width: 100%;
-    max-width: 100%;
+    max-width: min(1300px, 100vw);
     margin: 0 auto;
     justify-items: center;
     padding: 0 20px;
@@ -641,7 +664,7 @@ background-size: 100%;
     margin: 30px;
     height: 425px;
     width: 100%;
-    max-width: 100%;
+    max-width: calc(100% - 60px);
     border-radius: 4px;
     display: flex;
     flex-direction: column;
@@ -821,7 +844,7 @@ background-size: 100%;
     z-index: 1;
     height: 90%;
     width: 100%;
-    max-width: 1300px;
+    max-width: min(1300px, 100vw);
     overflow: hidden;
     overflow-x: hidden;
     box-sizing: border-box;
@@ -945,6 +968,10 @@ background-size: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 #footer__logo {
@@ -971,7 +998,11 @@ background-size: 100%;
 
 .footer__links--wrapper {
     display: flex;
-    
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .footer__links--items {
@@ -1018,8 +1049,10 @@ background-size: 100%;
     justify-content: space-between;
     align-items: center;
     width: 90%;
-    max-width: 1000px;
+    max-width: min(1000px, 100vw);
     margin: 40px auto 0 auto;
+    box-sizing: border-box;
+    padding: 0 20px;
 }
 
 .social__icons{
