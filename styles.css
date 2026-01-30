@@ -699,7 +699,7 @@ background-size: 100%;
 
 .services__card {
     margin: clamp(10px, 4vw, 30px);
-    height: clamp(300px, 50vw, 425px);
+    height: 425px;
     width: 100%;
     max-width: calc(100% - 60px);
     border-radius: 4px;
@@ -842,7 +842,7 @@ background-size: 100%;
         width: 100%;
         max-width: calc(100% - 40px);
         box-sizing: border-box;
-        height: clamp(280px, 45vw, 350px);
+        height: 425px;
     }
 
     .services__card h2 {
@@ -1211,7 +1211,7 @@ background-size: 100%;
         max-width: 100%;
         width: 100%;
         box-sizing: border-box;
-        height: clamp(250px, 40vw, 300px);
+        height: 425px;
     }
 
     .services__card h2 {
