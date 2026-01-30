@@ -79,7 +79,10 @@ const highlightMenu = function () {
 
     // Add highlight class to clicked navbar link and handle smooth scrolling
     const navbarLinks = document.querySelectorAll('.navbar__item .navbar__links, .navbar__btn .button, #sign-up-btn');
-    const navbarHeight = 80; // Height of sticky navbar
+    // Dynamically get navbar height instead of hardcoding
+    const getNavbarHeight = () => {
+        return navbar ? navbar.offsetHeight : 80; // Fallback to 80 if navbar not found
+    };
     
     // Also handle navbar logo click to go to home
     navLogo.addEventListener('click', function(e) {
@@ -139,27 +142,38 @@ const highlightMenu = function () {
                             behavior: 'smooth'
                         });
                     } else {
-                        // For other sections, calculate position accounting for sticky navbar
+                        // Get dynamic navbar height
+                        const navbarHeight = getNavbarHeight();
                         const isNavbarSticky = navbar.classList.contains('sticky');
-                        let targetPosition;
                         
                         // Use getBoundingClientRect for more accurate positioning
                         const rect = targetSection.getBoundingClientRect();
-                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
                         const currentTop = rect.top + scrollTop;
                         
-                        // Always account for navbar height
-                        targetPosition = currentTop - navbarHeight;
+                        // Calculate target position accounting for navbar
+                        // If navbar is sticky, we need to account for it
+                        // If not sticky, we still account for it to show content below navbar
+                        let targetPosition = currentTop - navbarHeight;
+                        
+                        // If navbar is sticky and body has padding, we might need to adjust
+                        if (isNavbarSticky && document.body.classList.contains('navbar-sticky')) {
+                            // The body padding-top already accounts for navbar, so we just subtract navbar height
+                            targetPosition = currentTop - navbarHeight;
+                        }
                         
                         // Ensure we don't scroll to negative position
                         targetPosition = Math.max(0, targetPosition);
                         
-                        // Use both methods for better mobile compatibility
-                        document.documentElement.scrollTop = targetPosition;
-                        document.body.scrollTop = targetPosition;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
+                        // Use requestAnimationFrame for better timing, especially on GitHub Pages
+                        requestAnimationFrame(() => {
+                            // Use both methods for better mobile compatibility
+                            document.documentElement.scrollTop = targetPosition;
+                            document.body.scrollTop = targetPosition;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
                         });
                     }
                 }
